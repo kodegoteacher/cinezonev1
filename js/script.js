@@ -2,6 +2,12 @@
 
 const global = {
   currentPage: window.location.pathname,
+  search: {
+    term: "",
+    type: "",
+    page: 1,
+    totalPages: 1,
+  },
 };
 
 //Displaying Popular Movies
@@ -220,6 +226,21 @@ function initSwiper() {
   });
 }
 
+async function search() {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString)
+  
+  // console.log(urlParams.get('type'));
+  global.search.type = urlParams.get('type')
+  global.search.type = urlParams.get('searcg-term')
+}
+
+if (global.search.term !== "" && global.search.term !== null){
+  //dito ka may gagawin pag may hinanap sya sa search
+} else {
+  alert("Please enter search term")
+}
+
 //Fetch data from TMDB API
 async function fetchAPIData(endpoint) {
 const API_KEY = '2c7b41aeee968eb46df10ecb0df3793c';
@@ -301,7 +322,7 @@ function init() {
       displayShowDetails();
       break;
     case "/search.html":
-      console.log("Search");
+      search();
       break;    
   }
   highlightActiveLink();
